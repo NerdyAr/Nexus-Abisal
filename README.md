@@ -60,4 +60,6 @@ Para colaboraciones o sugerencias: [advocatus.ush@gmail.com](mailto:advocatus.us
 
 ---
 
-> [SISTEMA_COLABORATIVO]: Este nodo reconoce el *insight* colectivo de IAs multitransversales (Gemini, Qwen) y la comunidad humana subyacente.
+> [SISTEMA_COLABORATIVO]: Este nodo reconoce el *insight* colectivo de IAs multitransversales (Grok, Gemini, Qwen y ChatGPT) y la comunidad de personas humanas subyacentes.
+
+♾️🏳️‍🌈
