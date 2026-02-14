@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Abisal - Blog de Inteligencia Estratégica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://utteranc.es/client.js" async defer repo="yourusername/your-repo" issue-term="pathname" theme="github-dark"> </script> <!-- Reemplaza con tu repo de GitHub para Utterances -->
+    <style>
+        /* Reset y Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0D1B2A;
+            color: #E0E1DD;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header Navegación */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(13, 27, 42, 0.95);
+            border-bottom: 1px solid #B07D62;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            color: #E0E1DD;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s ease, color 0.3s ease;
+            padding-bottom: 0.5rem;
+        }
+        nav a:hover {
+            border-bottom-color: #B07D62;
+            color: #B07D62;
+        }
+        /* Hero/Intro Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px; /* Espacio para header fijo */
+        }
+        #hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: #E0E1DD;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+        #manifesto {
+            max-width: 800px;
+            font-size: 1.1rem;
+            border: 1px solid #B07D62;
+            padding: 2rem;
+            background-color: rgba(13, 27, 42, 0.5);
+            overflow: hidden;
+        }
+        .manifesto-section {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: typeWriter 4s steps(40) forwards, fadeIn 0.5s ease-in 3.5s forwards;
+        }
+        @keyframes typeWriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .manifesto-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: #B07D62;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        /* Posts Grid */
+        #posts {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .post-card {
+            border: 1px solid #B07D62;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: rgba(13, 27, 42, 0.5);
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(176, 125, 98, 0.3);
+        }
+        .post-date {
+            color: #B07D62;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #E0E1DD;
+        }
+        .post-excerpt {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tag {
+            background-color: rgba(176, 125, 98, 0.2);
+            color: #B07D62;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+        /* Post View (para páginas individuales, copiar esta estructura en post1.html, etc.) */
+        .post-view {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 2rem;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+        .post-view h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #E0E1DD;
+        }
+        .post-view pre {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #B07D62;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .post-view blockquote {
+            border-left: 3px solid #B07D62;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #A9D6E5;
+        }
+        .post-view table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .post-view th, .post-view td {
+            border: 1px solid #B07D62;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .post-view th {
+            background-color: rgba(176, 125, 98, 0.2);
+        }
+        /* Comments Section */
+        #comments {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #B07D62;
+            background-color: rgba(13, 27, 42, 0.5);
+        }
+        /* Contact Form for Email Comments */
+        .contact-form {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #B07D62;
+            background-color: rgba(13, 27, 42, 0.5);
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            background-color: rgba(224, 225, 221, 0.1);
+            border: 1px solid #B07D62;
+            color: #E0E1DD;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .contact-form button {
+            background-color: #B07D62;
+            color: #0D1B2A;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #E0E1DD;
+        }
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid #B07D62;
+            text-align: center;
+        }
+        .license-terminal {
+            background-color: rgba(13, 27, 42, 0.9);
+            border-top: 1px solid #B07D62;
+            color: #E0E1DD;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+        .license-content p {
+            text-align: justify;
+            text-justify: inter-word;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .cc-icon {
+            height: 31px;
+            filter: sepia(1) saturate(2) hue-rotate(-10deg) brightness(0.8);
+            transition: filter 0.3s ease;
+        }
+        .cc-icon:hover {
+            filter: none;
+        }
+        .license-terminal a {
+            color: #B07D62;
+            text-decoration: none;
+            border-bottom: 1px dashed #B07D62;
+        }
+        .ai-recognition-node {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 3px solid #B07D62;
+            background-color: rgba(16, 29, 45, 0.5);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .ai-recognition-node p {
+            text-align: justify;
+            text-justify: inter-word;
+            color: #A9D6E5;
+            margin-bottom: 10px;
+        }
+        .ai-recognition-node strong {
+            color: #B07D62;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 2.5rem; }
+            nav ul { flex-direction: column; align-items: center; }
+            nav li { margin: 0.5rem 0; }
+            #posts { grid-template-columns: 1fr; }
+        }
+        /* Custom Cursor */
+        body { cursor: none; }
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: #B07D62;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+        .cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background-color: #B07D62;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.5); }
+        }
+        .trail {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(to right, #B07D62, transparent);
+            pointer-events: none;
+            z-index: 9998;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="trail" id="trail"></div>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#historical">[01] Historical Forensics</a></li>
+                <li><a href="#5c2i">[02] 5C/2I Intel</a></li>
+                <li><a href="#logic">[03] The Logic Lab</a></li>
+                <li><a href="#static">[04] Static in Motion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Sugerir Nombre Creativo</h1>
+        <div id="manifesto">
+            <div class="manifesto-section">
+                <h2>Fin</h2>
+                <p>Explorar la intersección entre inteligencia estratégica y narrativas creativas para desentrañar patrones ocultos en la historia y la tecnología.</p>
+            </div>
+            <div class="manifesto-section">
+                <h2>Misión</h2>
+                <p>Proporcionar análisis rigurosos y accesibles que empoderen a profesionales y curiosos en la toma de decisiones informadas.</p>
+            </div>
+            <div class="manifesto-section">
+                <h2>Visión</h2>
+                <p>Un mundo donde la inteligencia estratégica se democratice mediante herramientas open-source y perspectivas multidisciplinarias.</p>
+            </div>
+            <div class="manifesto-section">
+                <h2>Valores</h2>
+                <p>Transparencia, precisión analítica, colaboración abierta y respeto por la diversidad intelectual.</p>
+            </div>
+            <div class="manifesto-section">
+                <h2>Objetivos Operativos (Tácticos)</h2>
+                <p>Publicar contenido semanal, optimizar SEO para visibilidad, y fomentar interacciones comunitarias vía GitHub.</p>
+            </div>
+            <div class="manifesto-section">
+                <h2>Objetivos No Operativos (Estratégicos)</h2>
+                <p>Construir una red global de colaboradores y establecer benchmarks en análisis forense histórico-digital.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="posts" class="container">
+        <article class="post-card">
+            <div class="post-date">2026-02-14T14:53:00-03:00</div>
+            <h3 class="post-title">Análisis Forense en Archivos Digitales</h3>
+            <p class="post-excerpt">Exploración de técnicas para recuperar metadatos en documentos históricos, revelando narrativas ocultas.</p>
+            <div class="post-tags">
+                <span class="tag">#Forensics</span>
+                <span class="tag">#DigitalHistory</span>
+            </div>
+            <a href="post1.html">Leer más</a>
+        </article>
+        <article class="post-card">
+            <div class="post-date">2026-01-20T10:00:00-03:00</div>
+            <h3 class="post-title">El Marco 5C/2I en Inteligencia</h3>
+            <p class="post-excerpt">Aplicación práctica del modelo 5C/2I para evaluar amenazas cibernéticas emergentes.</p>
+            <div class="post-tags">
+                <span class="tag">#Intel</span>
+                <span class="tag">#Cybersecurity</span>
+            </div>
+            <a href="post2.html">Leer más</a>
+        </article>
+        <article class="post-card">
+            <div class="post-date">2026-01-10T15:30:00-03:00</div>
+            <h3 class="post-title">Lógica Deductiva en Escenarios Estáticos</h3>
+            <p class="post-excerpt">Modelos lógicos para simular movimientos en entornos de baja dinámica.</p>
+            <div class="post-tags">
+                <span class="tag">#Logic</span>
+                <span class="tag">#Strategy</span>
+            </div>
+            <a href="post3.html">Leer más</a>
+        </article>
+    </section>
+
+    <!-- Ejemplo de post1.html (crea archivos similares para post2.html, post3.html) -->
+    <!-- 
+    <section class="post-view container">
+        <h1>Análisis Forense en Archivos Digitales</h1>
+        <p>Contenido detallado justificado aquí. Longitud: 800 palabras.</p>
+        <pre><code>def analyze_metadata(file):
+    # Código de ejemplo
+    return metadata</code></pre>
+        <blockquote>Cita en APA 7: Autor, A. (2026). Título. Editorial.</blockquote>
+        <table>
+            <tr><th>Columna 1</th><th>Columna 2</th></tr>
+            <tr><td>Dato</td><td>Dato</td></tr>
+        </table>
+        <div id="comments">
+            <h2>Comentarios</h2>
+            <div id="utterances"></div> <!-- Utterances se carga aquí -->
+        </div>
+        <form class="contact-form" action="mailto:advocatus.ush@gmail.com" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Nombre" required>
+            <textarea name="body" placeholder="Comentario (500-1000 palabras). Nota: Moderación aplica para contenido no edificante (insultos, ideologías divisivas, etc.). No se recopila ni comparte información personal." rows="10" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    -->
+
+    <footer class="container">
+        <div class="license-terminal">
+            <div class="license-content">
+                <p>
+                    <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nc-sa.svg" alt="Creative Commons License" class="cc-icon">
+                    <span>
+                        [SISTEMA PROTEGIDO]: Nexum & Logic por <strong>Mario Luis López</strong> se distribuye bajo una
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener noreferrer">
+                        Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional
+                        </a>. Basado en el legado de Ius Lex XXI.
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="ai-recognition-node">
+            <p>
+                <strong>> [SISTEMA_COLABORATIVO]:</strong> Los reportes e investigaciones alojados en esta terminal son el resultado de un proceso de <strong>Prompt Engineering Estratégico</strong>, ejecutado mediante una arquitectura de <strong>IAs Multitransversales y Cooperativas</strong> (Gemini, Qwen, y modelos de soporte).
+            </p>
+            <p>
+                Este nodo reconoce el <em>insight</em> único nacido de la intersección tecnológica, así como el invaluable esfuerzo de los miles de seres humanos —desarrolladores, investigadores y lingüistas— cuyo trabajo subyace en la generación de estas herramientas. La inteligencia estratégica es, ante todo, un logro colectivo.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor con rastro
+        const cursor = document.querySelector('.cursor');
+        const trail = document.getElementById('trail');
+        let mouseX = 0, mouseY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            // Rastro sutil
+            trail.style.left = trailX + 'px';
+            trail.style.top = trailY + 'px';
+            trailX += (mouseX - trailX) * 0.05;
+            trailY += (mouseY - trailY) * 0.05;
+            trail.style.width = Math.hypot(mouseX - trailX, mouseY - trailY) * 0.5 + 'px';
+        });
+
+        // Efecto de escritura para manifesto (ya en CSS, pero JS para stagger)
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.manifesto-section');
+            sections.forEach((sec, i) => {
+                sec.style.animationDelay = `${i * 0.5}s`;
+            });
+        });
+
+        // Nota: Para Utterances, configura tu repo en GitHub y habilita issues. El script se carga en head.
+        // Para el form de email, usa mailto: envía directamente al correo especificado. Moderación manual recomendada.
+        // Crea post1.html, post2.html, post3.html copiando la estructura de post-view del comentario arriba, adaptando contenido.
+        // Sube a GitHub Pages: Crea repo, archivos, activa Pages en settings.
+    </script>
+</body>
+</html>
