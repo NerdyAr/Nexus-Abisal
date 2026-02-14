@@ -1,0 +1,29 @@
+# Dependencias (si se usan en desarrollo futuro)
+node_modules/
+npm-debug.log*
+
+# Archivos del sitio estático generados
+dist/
+build/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de editores/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs y temporales
+*.log
+tmp/
+temp/
+
+# Configuraciones locales de GitHub Pages
+_config.yml  # Si no se usa Jekyll
+
+# Archivos sensibles
+.env
+*.key
